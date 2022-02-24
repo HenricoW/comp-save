@@ -12,6 +12,7 @@ contract W3Saver is Ownable {
 
   IComptroller public comptroller;
 
+  /// @notice event for new account creation
   /// @param eoa - user address
   /// @param account - account address generated for user
   event AccountCreated(address indexed eoa, address account);
@@ -20,6 +21,7 @@ contract W3Saver is Ownable {
     comptroller = IComptroller(_comptroller);
   }
 
+  /// @notice factory generating new accounts
   function createAccount() external {
     if (userAccounts[msg.sender] == _nullAcc) return;
 
@@ -31,10 +33,12 @@ contract W3Saver is Ownable {
   }
 
   // helper functions
+  /// @notice returns list of all users that have ever interacted with this contract
   function historicUserList() external view onlyOwner returns (address[] memory) {
     return userAddrList;
   }
 
+  /// @notice helps view account address linked to EOA
   function getAccAddr(address uAddr) external view returns (address) {
     return address(userAccounts[uAddr]);
   }
